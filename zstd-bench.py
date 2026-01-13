@@ -68,10 +68,10 @@ def run_bench(input_file):
 
             results.append({
                 'desc': desc,
-                'ratio': cr,
-                'ratio_imp': cr_delta,
-                'comp_speed': cs,
-                'speed_change': cs_delta,
+                'cr': cr,
+                'cr_delta': cr_delta,
+                'cspeed': cs,
+                'cspeed_delta': cs_delta,
                 'size_mb': size/(1024*1024)
             })
 
