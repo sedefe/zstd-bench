@@ -3,6 +3,10 @@ from zstandard import ZstdCompressionParameters as zcp
 import time
 from pathlib import Path
 import sys
+import pandas as pd
+
+
+RESULTS_PATH = Path(__file__).parent / 'results'
 
 
 def init_test_params():
@@ -13,9 +17,9 @@ def init_test_params():
         (f"L4", zcp.from_level(4)),
         (f"L5", zcp.from_level(5)),
     ]
-    for dw in [+1, +2, +3]:
+    for dw in [+1, +2]:
         for dc in [+0, +1]:
-            for dh in [+1, +2, +3]:
+            for dh in [+1, +2]:
                 for dm in [0, +1]:
                     test_params.append(
                         (f"L3|w{dw:+2}|c{dc:+2}|h{dh:+2}|m{dm:+2}",
@@ -80,6 +84,9 @@ def run_bench(input_file):
                   f"{size/(1024*1024):5.2f} MB")
         except Exception as e:
             print(f"{desc:20s}: ERROR - {e}")
+
+    df = pd.DataFrame(results)
+    df.to_csv(RESULTS_PATH / 'results.csv', index=False)
 
 
 if __name__ == "__main__":
